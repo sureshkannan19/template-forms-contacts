@@ -82,5 +82,10 @@ selectIcon(icon: string): void {
     this.selectedIcon = icon;
     this.showAllIcons = false;
     this.onChange(icon); // Notify parent component about the change
-  }
+}
+```
+**@HostListener:**
+```
+@HostListener('input', ['$event.target.valueAsDate']) private onChange: Function;
+Listens to the input value of the dom element
 ```
