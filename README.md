@@ -1,9 +1,9 @@
-**Forms two types: **
+**Forms two types:**
 
 - Template driven
 - Reactive form
 
-# **Directives: **
+# **Directives:**
 
 - **(ngSubmit)** : Form submit
 - **[(ngModel)]** : Two way binding, where () is template to component and [] is component to template
@@ -50,7 +50,37 @@
   }
 
 ```
-**ControlValueAccessor: **
+**ControlValueAccessor:**
 ```
 providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ProfileIconSelectorComponent), multi: true }],
+
+* writeValue(icon: string | null): void
+* registerOnChange(fn: Function): void
+* registerOnTouched(fn: Function): void
+
+```
+**writeValue** : Set up initial value through ngModel
+```
+writeValue(icon: string | null): void {
+    this.selectedIcon = icon;
+    if (icon && icon !== '') {
+      this.showAllIcons = false;
+    } else {
+      this.showAllIcons = true;
+    }
+  }
+```
+**registerOnChange:**  register a callback function that should be called when the internal value of the component change 
+```
+  registerOnChange(fn: Function): void {
+    this.onChange = (icon: string) => fn(icon);
+  }
+```
+**onChange** method should be called, to reflect two-way
+```
+selectIcon(icon: string): void {
+    this.selectedIcon = icon;
+    this.showAllIcons = false;
+    this.onChange(icon); // Notify parent component about the change
+  }
 ```
